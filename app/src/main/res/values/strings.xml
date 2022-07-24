@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="day_time_movie">Updated:</string>
+    <string name="release_date">Release Date</string>
+    <string name="title">Title</string>
+    <string name="original_title">Original Title</string>
+    <string name="overview">Overview</string>
+    <string name="popularity">Popularity</string>
+    <string name="genre">Genre</string>
+    <string name="vote_count">Vote Count</string>
+    <string name="vote_average">Vote Average</string>
+    <string name="top_movies_text">Top movies</string>
+    <string name="top_rated_movies">"Top rated "</string>
+    <string name="popular_movies">Popular</string>
+</resources>

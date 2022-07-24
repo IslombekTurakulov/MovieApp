@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="day_time_movie">Обновлено:</string>
+    <string name="release_date">Дата выпуска</string>
+    <string name="title">Название</string>
+    <string name="original_title">Оригинальное название</string>
+    <string name="overview">Описание</string>
+    <string name="popularity">Популярность</string>
+    <string name="genre">Жанр</string>
+    <string name="vote_count">Количество отзывов</string>
+    <string name="vote_average">Средняя оценка зрителей</string>
+    <string name="top_movies_text">Топ фильмы/сериалы</string>
+    <string name="top_rated_movies">Предпочтение пользователей</string>
+    <string name="popular_movies">Популярные</string>
+</resources>
