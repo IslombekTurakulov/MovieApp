@@ -4,10 +4,5 @@ It displays three different movie categories, launches a details screen whenever
 This app fetches movie information using themoviedb.org web API.
 
 
-![](example/first.png)
 
-![](example/second.png)
-
-![](example/third.png)
-
-![](example/fourth.png)
+<img width="40%" src="example/first.png" /><img width="40%" src="example/second.png" /><img width="80%" src="example/third.png" /> <img width="80%" src="example/fourth.png" />
