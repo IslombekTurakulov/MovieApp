@@ -10,6 +10,6 @@
     <string name="vote_count">Vote Count</string>
     <string name="vote_average">Vote Average</string>
     <string name="top_movies_text">Top movies</string>
-    <string name="top_rated_movies">"Top rated "</string>
+    <string name="top_rated_movies">Top rated</string>
     <string name="popular_movies">Popular</string>
 </resources>

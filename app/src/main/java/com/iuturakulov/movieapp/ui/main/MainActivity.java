@@ -1,5 +1,6 @@
 package com.iuturakulov.movieapp.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -17,8 +18,12 @@ import com.iuturakulov.movieapp.ui.adapter.PopularAdapter;
 import com.iuturakulov.movieapp.databinding.ActivityMainBinding;
 import com.iuturakulov.movieapp.api.model.Movie;
 import com.iuturakulov.movieapp.utils.Constant;
+import com.iuturakulov.movieapp.utils.NetworkVerification;
 import com.iuturakulov.movieapp.api.ApiInterface;
 import com.iuturakulov.movieapp.api.ApiClient;
+
+import android.content.res.Resources;
+import android.content.res.Configuration;
 
 import java.util.Locale;
 import java.util.ArrayList;
@@ -49,37 +54,54 @@ public class MainActivity extends AppCompatActivity {
         // Set Flag layout No limit (full frame layout)
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         activityMainBinding.languageButton.setOnClickListener(lang -> {
-            if (Constant.LANGUAGE.equals("en")) {
-                Constant.LANGUAGE = " ru-RU";
+            if (Constant.LANGUAGE.equals("en-EN")) {
+                Constant.LANGUAGE = "ru-RU";
             } else {
                 Constant.LANGUAGE = "en-EN";
             }
-            Locale locale = new Locale(Constant.LANGUAGE);
-            Locale.setDefault(locale);
-            Resources resources = activity.getResources();
+            Locale locale = new Locale(Constant.LANGUAGE.split("-")[0]);
+            // Locale.setDefault(locale);
+            Resources resources = getResources();
             Configuration config = resources.getConfiguration();
             config.setLocale(locale);
             resources.updateConfiguration(config, resources.getDisplayMetrics());
+            recreate();
         });
         MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        getPoster();
+        if (NetworkVerification.isNetworkAvailable(this)) {
+            getPoster();
+        } else {
+            Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        }
         mainViewModel.getTopRated().observe(this, resultsBeans -> {
-            topRatedAdapter = new TopRatedAdapter(this, resultsBeans);
-            activityMainBinding.topRatedMovies.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-            activityMainBinding.topRatedMovies.setAdapter(topRatedAdapter);
-            Toast.makeText(this, "GET TOP RATED " + resultsBeans.size(), Toast.LENGTH_SHORT).show();
+            if (NetworkVerification.isNetworkAvailable(this)) {
+                topRatedAdapter = new TopRatedAdapter(this, resultsBeans);
+                activityMainBinding.topRatedMovies.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                activityMainBinding.topRatedMovies.setAdapter(topRatedAdapter);
+                Toast.makeText(this, "GET TOP RATED " + resultsBeans.size(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+            }
         });
         mainViewModel.getPopular().observe(this, resultsBeans -> {
-            popularAdapter = new PopularAdapter(this, resultsBeans);
-            activityMainBinding.popularMovies.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-            activityMainBinding.popularMovies.setAdapter(popularAdapter);
-            Toast.makeText(this, "GET POPULAR " + resultsBeans.size(), Toast.LENGTH_SHORT).show();
+            if (NetworkVerification.isNetworkAvailable(this)) {
+                popularAdapter = new PopularAdapter(this, resultsBeans);
+                activityMainBinding.popularMovies.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                activityMainBinding.popularMovies.setAdapter(popularAdapter);
+                Toast.makeText(this, "GET POPULAR " + resultsBeans.size(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+            }
         });
         mainViewModel.getNowPlaying().observe(this, resultsBeans -> {
-            nowPlayingAdapter = new NowPlayingAdapter(this, resultsBeans);
-            activityMainBinding.nowPlayingMovies.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-            activityMainBinding.nowPlayingMovies.setAdapter(nowPlayingAdapter);
-            Toast.makeText(this, "NOW PLAYING " + resultsBeans.size(), Toast.LENGTH_SHORT).show();
+            if (NetworkVerification.isNetworkAvailable(this)) {
+                nowPlayingAdapter = new NowPlayingAdapter(this, resultsBeans);
+                activityMainBinding.nowPlayingMovies.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
+                activityMainBinding.nowPlayingMovies.setAdapter(nowPlayingAdapter);
+                Toast.makeText(this, "NOW PLAYING " + resultsBeans.size(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No internet connection", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

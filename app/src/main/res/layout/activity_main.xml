@@ -83,7 +83,7 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:layout_width="283dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/top_movies_text"
                         android:textColor="@color/white"
